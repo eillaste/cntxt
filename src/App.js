@@ -1,28 +1,35 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Child from './Child';
+import { ColorContext } from './Context';
+import { NumberContext } from './Context2';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+	state = {
+		color: 'blue',
+		message: ', mate'
+	};
+
+	stuff = {
+		number: 6,
+		func: () => {
+			this.stuff.number = this.stuff.number + 1;
+			this.forceUpdate();
+		}
+	};
+
+	render() {
+		return (
+			<ColorContext.Provider value={this.state}>
+				<NumberContext.Provider value={this.stuff}>
+					<div className="App">
+						I'm the Parent
+						<Child />
+					</div>
+				</NumberContext.Provider>
+			</ColorContext.Provider>
+		);
+	}
 }
 
 export default App;
